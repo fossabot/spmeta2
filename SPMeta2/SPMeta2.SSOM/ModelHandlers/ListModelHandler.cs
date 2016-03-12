@@ -102,10 +102,15 @@ namespace SPMeta2.SSOM.ModelHandlers
         {
             var list = currentObject;
 
-            list.Title = definition.Title;
+            // temporarily switch culture to allow setting of the properties Title and Description for multi-language scenarios
+            CultureUtils.WithCulture(currentObject.ParentWeb.UICulture, () =>
+            {
+                list.Title = definition.Title;
 
-            // SPBug, again & again, must not be null
-            list.Description = definition.Description ?? string.Empty;
+                // SPBug, again & again, must not be null
+                list.Description = definition.Description ?? string.Empty;
+            });
+
             list.ContentTypesEnabled = definition.ContentTypesEnabled;
 
             if (!string.IsNullOrEmpty(definition.DraftVersionVisibility))
@@ -162,10 +167,24 @@ namespace SPMeta2.SSOM.ModelHandlers
 #if !NET35
             if (definition.IndexedRootFolderPropertyKeys.Any())
             {
-                foreach (var indexProperty in definition.IndexedRootFolderPropertyKeys)
+                foreach (var indexedProperty in definition.IndexedRootFolderPropertyKeys)
                 {
-                    if (!list.IndexedRootFolderPropertyKeys.Contains(indexProperty))
-                        list.IndexedRootFolderPropertyKeys.Add(indexProperty);
+                    // indexed prop should exist in the prop bag
+                    // otherwise it won't be saved by SharePoint (ILSpy / Refletor to see the logic)
+                    // http://rwcchen.blogspot.com.au/2014/06/sharepoint-2013-indexed-property-keys.html
+
+                    var propName = indexedProperty.Name;
+                    var propValue = string.IsNullOrEmpty(indexedProperty.Value)
+                                            ? string.Empty
+                                            : indexedProperty.Value;
+
+                    if (list.RootFolder.Properties.ContainsKey(propName))
+                        list.RootFolder.Properties[propName] = propValue;
+                    else
+                        list.RootFolder.Properties.Add(propName, propValue);
+
+                    if (!list.IndexedRootFolderPropertyKeys.Contains(propName))
+                        list.IndexedRootFolderPropertyKeys.Add(propName);
                 }
             }
 #endif

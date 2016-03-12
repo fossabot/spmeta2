@@ -74,7 +74,7 @@ namespace SPMeta2.CSOM.ModelHandlers
                     if (parentContentType == null)
                         throw new SPMeta2Exception("Couldn't find parent contenttype with the given name.");
 
-                    contentTypeModel.ParentContentTypeId = parentContentType.StringId;
+                    //contentTypeModel.ParentContentTypeId = parentContentType.StringId;
                 }
 
                 var id = contentTypeModel.GetContentTypeId();
@@ -148,18 +148,21 @@ namespace SPMeta2.CSOM.ModelHandlers
 
             if (string.IsNullOrEmpty(contentTypeModel.ParentContentTypeId))
             {
-                var result = context.LoadQuery(web.AvailableContentTypes.Where(ct => ct.Name == contentTypeModel.ParentContentTypeName));
+                var parentContentTypeName = contentTypeModel.ParentContentTypeName;
+
+                var result = context.LoadQuery(web.AvailableContentTypes.Where(ct => ct.Name == parentContentTypeName));
                 context.ExecuteQueryWithTrace();
 
                 var parentContentType = result.FirstOrDefault();
                 if (parentContentType == null)
                     throw new SPMeta2Exception("Couldn't find parent contenttype with the given name.");
 
-                contentTypeModel.ParentContentTypeId = parentContentType.StringId;
+                // rare case where it's ok to change definition
+                contentTypeModel.ParentContentTypeId = parentContentType.Id.ToString();
             }
 
-            var contentTypeId = contentTypeModel.GetContentTypeId();
             var contentTypeName = contentTypeModel.Name;
+            var contentTypeId = contentTypeModel.GetContentTypeId();
 
 #if !NET35
             var tmpContentType = context.LoadQuery(web.ContentTypes.Where(ct => ct.StringId == contentTypeId));
@@ -246,7 +249,7 @@ namespace SPMeta2.CSOM.ModelHandlers
                     if (!processedDocumentTemplateUrl.Contains('/')
                         && !processedDocumentTemplateUrl.Contains('\\'))
                     {
-                        processedDocumentTemplateUrl = UrlUtility.CombineUrl(new []
+                        processedDocumentTemplateUrl = UrlUtility.CombineUrl(new[]
                         {
                             serverRelativeFolderUrl,
                             processedDocumentTemplateUrl
@@ -329,11 +332,12 @@ namespace SPMeta2.CSOM.ModelHandlers
                 if (parentContentType == null)
                     throw new SPMeta2Exception("Couldn't find parent contenttype with the given name.");
 
-                contentTypeModel.ParentContentTypeId = parentContentType.StringId;
+                // nope, never change the definition props
+                //contentTypeModel.ParentContentTypeId = parentContentType.StringId;
             }
             else
             {
-            context.ExecuteQueryWithTrace();
+                context.ExecuteQueryWithTrace();
             }
 
             var contentTypeId = contentTypeModel.GetContentTypeId();

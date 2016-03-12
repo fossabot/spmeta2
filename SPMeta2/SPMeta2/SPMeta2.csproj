@@ -223,6 +223,8 @@
     <Compile Include="Enumerations\BuiltInAuditMaskType.cs" />
     <Compile Include="Enumerations\BuiltInBasePermissions.cs" />
     <Compile Include="Enumerations\BuiltInListWriteSecurity.cs" />
+    <Compile Include="Enumerations\BuiltInWorkflowIds.cs" />
+    <Compile Include="Enumerations\BuiltInWorkflowNames.cs" />
     <Compile Include="Enumerations\BuiltInToolbarType.cs" />
     <Compile Include="Enumerations\BuiltInViewScope.cs" />
     <Compile Include="Enumerations\BuiltInComposedLookItemNames.cs" />
@@ -354,6 +356,8 @@
     <Compile Include="Services\DefaultPreDeploymentTreeTraverseServiceBase.cs" />
     <Compile Include="Services\DeploymentServiceBase.cs" />
     <Compile Include="Services\HashCodeServiceBase.cs" />
+    <Compile Include="Services\Impl\DefaultModelCompatibilityService.cs" />
+    <Compile Include="Services\Impl\Validation\DefaultBooleanFieldDefinitionValidationService.cs" />
     <Compile Include="Services\Impl\Validation\DefaultFieldInternalNamePropertyValidationService.cs" />
     <Compile Include="Services\Impl\DefaultDefinitionRelationshipService.cs" />
     <Compile Include="Services\Impl\Validation\DefaultVersionBasedPropertiesValidationService.cs" />
@@ -372,6 +376,7 @@
     <Compile Include="Services\LocalizationServiceBase.cs" />
     <Compile Include="Services\LogEventId.cs" />
     <Compile Include="Services\DefinitionRelationshipServiceBase.cs" />
+    <Compile Include="Services\ModelCompatibilityServiceBase.cs" />
     <Compile Include="Services\ModelServiceBase.cs" />
     <Compile Include="Services\ModelTreeTraverseServiceBase.cs" />
     <Compile Include="Services\ModelWeighServiceBase.cs" />
@@ -380,6 +385,7 @@
     <Compile Include="Services\PreDeploymentServiceBase.cs" />
     <Compile Include="Services\ProvisionServiceBase.cs" />
     <Compile Include="Services\SerializationServiceBase.cs" />
+    <Compile Include="Services\ServiceModelHandlers\BooleanFieldDefinitionValidationModelHandler.cs" />
     <Compile Include="Services\ServiceModelHandlers\DefaultContentTypeIdPropertyModelHandler.cs" />
     <Compile Include="Services\ServiceModelHandlers\DefaultRequiredPropertiesModelHandler.cs" />
     <Compile Include="Services\ServiceModelHandlers\DefaultNotAbsoluteUrlPropertiesModelHandler.cs" />
@@ -570,6 +576,8 @@
     </Compile>
     <Compile Include="Utils\CamlQueryUtils.cs" />
     <Compile Include="Utils\ConvertUtils.cs" />
+    <Compile Include="Utils\CultureUtils.cs" />
+    <Compile Include="Utils\IndexedPropertyUtils.cs" />
     <Compile Include="Utils\PageViewerWebPartXmlExtensions.cs" />
     <Compile Include="Utils\ListViewWebPartXmlExtensions.cs" />
     <Compile Include="Utils\ContentEditorWebPartXmlExtensions.cs" />

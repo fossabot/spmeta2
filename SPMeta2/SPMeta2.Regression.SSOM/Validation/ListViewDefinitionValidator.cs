@@ -31,6 +31,13 @@ namespace SPMeta2.Regression.SSOM.Validation
                                .ShouldBeEqual(m => m.RowLimit, o => (int)o.RowLimit)
                                .ShouldBeEqual(m => m.IsPaged, o => o.Paged);
 
+
+            if (definition.InlineEdit.HasValue)
+                assert.ShouldBeEqual(m => m.InlineEdit.ToString().ToLower(), o => o.InlineEdit.ToLower());
+            else
+                assert.SkipProperty(m => m.InlineEdit);
+
+
             if (!string.IsNullOrEmpty(definition.Scope))
             {
                 assert.ShouldBeEqual((p, s, d) =>
@@ -167,6 +174,11 @@ namespace SPMeta2.Regression.SSOM.Validation
                 assert.ShouldBeEqual(m => m.DefaultViewForContentType, o => o.DefaultViewForContentType);
             else
                 assert.SkipProperty(m => m.DefaultViewForContentType, "DefaultViewForContentType is null or empty. Skipping.");
+
+            if (definition.TabularView.HasValue)
+                assert.ShouldBeEqual(m => m.TabularView, o => o.TabularView);
+            else
+                assert.SkipProperty(m => m.TabularView, "TabularView is null or empty. Skipping.");
 
             if (string.IsNullOrEmpty(definition.ContentTypeName))
                 assert.SkipProperty(m => m.ContentTypeName, "ContentTypeName is null or empty. Skipping.");

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.UI.WebControls.WebParts;
@@ -233,7 +234,13 @@ namespace SPMeta2.SSOM.ModelHandlers
             }
 
             currentView.Hidden = listViewModel.Hidden;
+            if (listViewModel.InlineEdit.HasValue)
+            {
+                currentView.InlineEdit = listViewModel.InlineEdit.Value.ToString(CultureInfo.InvariantCulture);
+            }
+
             currentView.Title = listViewModel.Title;
+
             currentView.RowLimit = (uint)listViewModel.RowLimit;
             currentView.DefaultView = listViewModel.IsDefault;
             currentView.Paged = listViewModel.IsPaged;
@@ -259,6 +266,11 @@ namespace SPMeta2.SSOM.ModelHandlers
             {
                 var viewStyle = targetList.ParentWeb.ViewStyles.StyleByID(listViewModel.ViewStyleId.Value);
                 currentView.ApplyStyle(viewStyle);
+            }
+
+            if (listViewModel.TabularView.HasValue)
+            {
+                currentView.TabularView = listViewModel.TabularView.Value;
             }
         }
 
