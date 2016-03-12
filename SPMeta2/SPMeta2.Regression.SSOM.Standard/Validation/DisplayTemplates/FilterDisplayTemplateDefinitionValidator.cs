@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.SharePoint;
 using SPMeta2.Containers.Assertion;
 using SPMeta2.Definitions;
+using SPMeta2.Regression.SSOM.Extensions;
 using SPMeta2.Regression.SSOM.Standard.Validation.Base;
 using SPMeta2.Regression.SSOM.Validation;
 using SPMeta2.SSOM.ModelHosts;
@@ -90,7 +91,7 @@ namespace SPMeta2.Regression.SSOM.Standard.Validation.DisplayTemplates
             {
                 assert.ShouldBeEqual((p, s, d) =>
                 {
-                    var srcProp = s.GetExpressionValue(m => m.TargetControlTypes);
+                    var srcProp = s.GetExpressionValue(m => m.CompatibleSearchDataTypes);
                     var isValid = true;
 
                     var targetControlTypeValue = new SPFieldMultiChoiceValue(d["CompatibleSearchDataTypes"].ToString());
@@ -99,7 +100,7 @@ namespace SPMeta2.Regression.SSOM.Standard.Validation.DisplayTemplates
                     for (var i = 0; i < targetControlTypeValue.Count; i++)
                         targetControlTypeValues.Add(targetControlTypeValue[i].ToUpper());
 
-                    foreach (var v in s.TargetControlTypes)
+                    foreach (var v in s.CompatibleSearchDataTypes)
                     {
                         if (!targetControlTypeValues.Contains(v.ToUpper()))
                             isValid = false;

@@ -1,19 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 
 namespace SPMeta2.Attributes.Regression
 {
     /// <summary>
-    /// Used by regression testing infrastructure to indicate properties which have to be changes with a new provision.
+    /// Used by regression testing infrastructure to indicate properties which have to be changed with a new provision.
     /// </summary>
     public class ExpectUpdate : Attribute
     {
 
     }
 
+    public class ExpectUpdatAsToolbarType : ExpectUpdate
+    {
+
+    }
+
+    public class ExpectUpdateAsRichTextMode : ExpectUpdate
+    {
+
+    }
+
+    public class ExpectUpdateAsChoiceFieldEditFormat : ExpectUpdate
+    {
+
+    }
 
     public class ExpectUpdateAsStandalone : ExpectUpdate
     {
@@ -71,15 +81,30 @@ namespace SPMeta2.Attributes.Regression
 
     }
 
+    public class ExpectUpdateAsLookupField : ExpectUpdate
+    {
+
+    }
+
     public class ExpectUpdateAsChromeState : ExpectUpdate
     {
 
     }
+
+    public class ExpectUpdateAsViewScope : ExpectUpdate
+    {
+
+    }
+
     public class ExpectUpdateAsChromeType : ExpectUpdate
     {
 
     }
 
+    public class ExpectUpdateAsBooleanFieldDefaultValue : ExpectUpdate
+    {
+        
+    }
 
     public class ExpectUpdateAsIntRange : ExpectUpdate
     {
@@ -99,6 +124,12 @@ namespace SPMeta2.Attributes.Regression
         }
 
         public string Extension { get; set; }
+    }
+
+
+    public class ExpectUpdateAsServerRelativeUrl : ExpectUpdateAsUrl
+    {
+
     }
 
     public class ExpectUpdateAsCalculatedFieldFormula : ExpectUpdate

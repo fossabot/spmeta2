@@ -1,11 +1,9 @@
-﻿using SPMeta2.Definitions;
-using SPMeta2.Definitions.Base;
-using SPMeta2.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
+using SPMeta2.Definitions;
+using SPMeta2.Models;
 
 namespace SPMeta2.Extensions
 {
@@ -64,10 +62,31 @@ namespace SPMeta2.Extensions
 
         public static List<ModelNode> FindNodes(this ModelNode model, DefinitionBase definition)
         {
-            return FindNodes(model, modelNode =>
-              {
-                  return modelNode.Value == definition;
-              });
+            return FindNodes(model, modelNode => modelNode.Value == definition);
+        }
+
+        public static List<ModelNode> Flatten(this ModelNode model)
+        {
+            return Flatten(model, node => true);
+        }
+
+        public static List<ModelNode> Flatten(this ModelNode model, Func<ModelNode, bool> match)
+        {
+            var result = new List<ModelNode>();
+
+            if (match != null)
+            {
+                if (match(model))
+                    result.Add(model);
+            }
+            else
+            {
+                result.Add(model);
+            }
+
+            result.AddRange(FindNodes(model, match));
+
+            return result;
         }
 
         public static List<ModelNode> FindNodes(this ModelNode model, Func<ModelNode, bool> match)
@@ -97,15 +116,10 @@ namespace SPMeta2.Extensions
             if (action == null)
                 return model;
 
-            var nodes = FindNodes(model, modelNode =>
-            {
-                return modelNode.Value is TModelDefinition;
-            });
+            var nodes = FindNodes(model, modelNode => modelNode.Value is TModelDefinition);
 
-            for (int i = 0; i < nodes.Count; i++)
-            {
-                action(nodes[i]);
-            }
+            foreach (var n in nodes)
+                action(n);
 
             return model;
         }
@@ -118,7 +132,6 @@ namespace SPMeta2.Extensions
         /// Imports all definitions from the static class fields / props.
         /// </summary>
         /// <param name="node"></param>
-        /// <param name="classType"></param>
         public static ModelNode AddDefinitionsFromStaticClassType<TType>(this ModelNode node)
         {
             return AddDefinitionsFromStaticClassType(node, typeof(TType));

@@ -154,7 +154,9 @@ namespace SPMeta2.Regression.Tests.Impl.Scenarios
             {
                 Title = Rnd.String(),
                 TemplateType = BuiltInListTemplateTypeId.Tasks,
+#pragma warning disable 618
                 Url = Rnd.String()
+#pragma warning restore 618
             };
         }
 
@@ -164,11 +166,13 @@ namespace SPMeta2.Regression.Tests.Impl.Scenarios
             {
                 Title = Rnd.String(),
                 TemplateType = BuiltInListTemplateTypeId.WorkflowHistory,
+#pragma warning disable 618
                 Url = Rnd.String()
+#pragma warning restore 618
             };
         }
 
-        protected void AddWebWorkflow(ModelNode web)
+        protected void AddWebWorkflow(WebModelNode web)
         {
             var workflow = ModelGeneratorService.GetRandomDefinition<SP2013WorkflowDefinition>();
 
@@ -176,19 +180,21 @@ namespace SPMeta2.Regression.Tests.Impl.Scenarios
             var taskList = GetTaskList();
 
             web
-                          .AddSP2013Workflow(workflow)
-                          .AddList(historyList)
-                          .AddList(taskList)
-                          .AddSP2013WorkflowSubscription(new SP2013WorkflowSubscriptionDefinition
-                          {
-                              Name = Rnd.String(),
-                              WorkflowDisplayName = workflow.DisplayName,
-                              HistoryListUrl = historyList.GetListUrl(),
-                              TaskListUrl = taskList.GetListUrl()
-                          });
+                .AddList(historyList)
+                .AddList(taskList)
+                .AddSP2013Workflow(workflow)
+                .AddSP2013WorkflowSubscription(new SP2013WorkflowSubscriptionDefinition
+                {
+                    Name = Rnd.String(),
+                    WorkflowDisplayName = workflow.DisplayName,
+#pragma warning disable 618
+                    HistoryListUrl = historyList.GetListUrl(),
+                    TaskListUrl = taskList.GetListUrl()
+#pragma warning restore 618
+                });
         }
 
-        protected void AddListWorkflow(ModelNode web)
+        protected void AddListWorkflow(WebModelNode web)
         {
             var workflow = ModelGeneratorService.GetRandomDefinition<SP2013WorkflowDefinition>();
             var workflowEnableList = ModelGeneratorService.GetRandomDefinition<ListDefinition>();
@@ -197,7 +203,7 @@ namespace SPMeta2.Regression.Tests.Impl.Scenarios
             var taskList = GetTaskList();
 
             web
-                        .AddSP2013Workflow(workflow)
+
                         .AddList(historyList)
                         .AddList(taskList)
                         .AddList(workflowEnableList, list =>
@@ -206,10 +212,13 @@ namespace SPMeta2.Regression.Tests.Impl.Scenarios
                             {
                                 Name = Rnd.String(),
                                 WorkflowDisplayName = workflow.DisplayName,
+#pragma warning disable 618
                                 HistoryListUrl = historyList.GetListUrl(),
                                 TaskListUrl = taskList.GetListUrl()
+#pragma warning restore 618
                             });
-                        });
+                        })
+                        .AddSP2013Workflow(workflow);
         }
 
         #endregion

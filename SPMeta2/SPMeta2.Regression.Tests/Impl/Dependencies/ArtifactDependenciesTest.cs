@@ -15,6 +15,7 @@ using SPMeta2.Standard.Definitions.Taxonomy;
 using SPMeta2.Standard.Definitions.Webparts;
 using SPMeta2.Utils;
 using System.Collections.Generic;
+using SPMeta2.Models;
 using SPMeta2.Syntax.Default;
 
 namespace SPMeta2.Regression.Tests.Impl.Dependencies
@@ -115,7 +116,7 @@ namespace SPMeta2.Regression.Tests.Impl.Dependencies
         //           });
         //       });
 
-        //    TestModels(new[] { siteModel, webModel });
+        //    TestModels(new  ModelNode[] { siteModel, webModel });
         //}
 
         protected void EnsureListFieldScopedWeigh()
@@ -158,11 +159,11 @@ namespace SPMeta2.Regression.Tests.Impl.Dependencies
                    site.AddList(webList, list =>
                    {
                        list.AddField(listField);
-                       list.AddView(webListView);
+                       list.AddListView(webListView);
                    });
                });
 
-            TestModels(new[] { webModel });
+            TestModels(new  ModelNode[] { webModel });
         }
 
         #endregion
