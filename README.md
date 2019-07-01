@@ -1,4 +1,4 @@
-﻿# SPMeta2
+# SPMeta2
 
 The most comprehensive, enterprise-ready framework for provisioning SharePoint artifacts on SharePoint 2010, 2013 and O365. SPMeta2 is a code-first provision library supporting the provision of more than 120 artifacts in robust, highly repeatable and testable way while leveraging either one of the CSOM or SSOM SharePoint runtimes. Here is a few facts about it:
 
@@ -11,6 +11,7 @@ The most comprehensive, enterprise-ready framework for provisioning SharePoint a
 
 ### Build status
 [![Build status](https://ci.appveyor.com/api/projects/status/0ym3fts7hmrdjvy1?svg=true)](https://ci.appveyor.com/project/SubPointSupport/spmeta2)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Favishnyakov%2Fspmeta2.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Favishnyakov%2Fspmeta2?ref=badge_shield)
 
 ### SPMeta2 in details
 
@@ -111,3 +112,7 @@ SharePoint 2010 SSOM
 * [SharePoint Saturday Oslo 2015 - NEW!](http://yuriburger.net/2015/10/17/slidedeck-sharepoint-saturday-oslo-2015-now-available/)
 * [Slidedeck SharePoint Artifact Provisioning - VX Company](http://www.werkenbijvxcompany.nl/wp-content/uploads/2015/05/Provisioning-SharePoint-Artifacts-Blog.pdf)
 * [SharePointCommunity.ch SharePoint Lösungen für die Zukunft](http://www.slideshare.net/fiddich1/sharepointcommunitych-sharepoint-lsungen-fr-die-zukunft)
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Favishnyakov%2Fspmeta2.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Favishnyakov%2Fspmeta2?ref=badge_large)
